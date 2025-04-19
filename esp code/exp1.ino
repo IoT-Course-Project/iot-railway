@@ -9,6 +9,7 @@
 #define buzzerPin 25
 #define redLED 32
 #define greenLED 33
+
 long getDistance(int trigPin, int echoPin) {
   digitalWrite(trigPin, LOW);
   delayMicroseconds(2);
@@ -55,7 +56,7 @@ void loop() {
   Serial.print(" | IR2: ");
   Serial.println(ir2);
 
-  // Check IR sensors
+  // Crack detection
   if (ir1 == 1) {
     Serial.println("⚠️ ALERT: Crack detected by IR Sensor 1");
     alert = true;
@@ -66,17 +67,18 @@ void loop() {
     alert = true;
   }
 
-  // Check Ultrasonic sensors
-  if (distance1 > 6) {
+  // Misalignment detection (distance > 6 OR ≤ 2)
+  if (distance1 > 6 || distance1 <= 2) {
     Serial.println("⚠️ ALERT: Misalignment detected by Ultrasonic Sensor 1");
     alert = true;
   }
 
-  if (distance2 > 6) {
+  if (distance2 > 6 || distance2 <= 2) {
     Serial.println("⚠️ ALERT: Misalignment detected by Ultrasonic Sensor 2");
     alert = true;
   }
 
+  // Alert handling
   if (alert) {
     digitalWrite(redLED, HIGH);
     digitalWrite(greenLED, HIGH);
