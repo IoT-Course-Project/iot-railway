@@ -1,0 +1,14 @@
+# Core dependencies
+polars
+numpy
+pyserial
+scikit-learn
+joblib
+micromlgen
+flask
+
+# Dev tools
+jupyter
+black
+flake8
+ipython
